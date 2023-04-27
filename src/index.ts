@@ -12,6 +12,11 @@ dotenv.config()
 const app: Express = express()
 const port = process.env.PORT
 
+const corsOptions = {
+    origin:'http://localhost:3000'
+}
+
+app.use((cors(corsOptions)))
 app.use('/agents', agentRoutes)
 app.use('/admin', adminRoutes)
 app.use('/tickets', ticketsRoutes)
