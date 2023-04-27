@@ -5,7 +5,8 @@ import adminRoutes from './routes/adminRoutes.js'
 import ticketsRoutes from './routes/ticketRoutes.js'
 import developerRoutes from './routes/developerRoutes.js'
 import authRoutes from './routes/authRoutes.js'
-
+import cookieSession from 'cookie-session'
+import cors from 'cors'
 dotenv.config()
 
 const app: Express = express()
