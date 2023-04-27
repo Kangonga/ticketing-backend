@@ -1,15 +1,16 @@
 import express, { Express, Request, Response, Router } from 'express'
-import { createAgent, deleteAgent, getAllAgents, getOneAgent, updateOneAgent } from '../controllers/agentController.js';
+// import { createAgent, deleteAgent, getAllAgents, getOneAgent, updateOneAgent } from '../controllers/agentController.js';
+import { agentController } from '../controllers/agentController.js'; 
 
 const agentRoutes = Router();
 
 agentRoutes.route('/')
-.get(getAllAgents)
-.post(createAgent)
+.get(agentController.getAllAgents)
+.post(agentController.createAgent)
 
 agentRoutes.route('/:id')
-.get(getOneAgent)
-.patch(updateOneAgent)
-.delete(deleteAgent)
+.get(agentController.getAgentById)
+.patch(agentController.updateAgentById)
+.delete(agentController.deleteAgentById)
 
 export default agentRoutes
