@@ -27,4 +27,4 @@ app.use('/auth', authRoutes)
 //     res.send('Express and typescript server')
 // })
 
-app.listen(port, console.log(`server listening on port ${port}`))
+app.listen(port, ()=>console.log(`server listening on port ${port}`))
