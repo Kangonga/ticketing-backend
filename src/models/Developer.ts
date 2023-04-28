@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, Document } from  'mongoose'
+import mongoose, { Schema, model, Types } from  'mongoose'
 
 //define interface for user object
 interface Developer {
@@ -9,6 +9,10 @@ interface Developer {
     imgUrl: String;
     isOnline:Boolean;
     password: String;
+    admin: {
+        type: Types.ObjectId,
+        ref:String
+    };
 }
 
 //create mongoose schema for user object
@@ -20,6 +24,7 @@ const developerSchema = new Schema<Developer>({
     imgUrl: { type: String, required: true },
     isOnline: { type: Boolean, required: true},
     password: { type: String, required: true },
+    admin: { type: Types.ObjectId, ref: "Admin" }
 })
 
 //create mongoose model object

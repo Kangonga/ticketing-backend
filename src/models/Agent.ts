@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, Document } from  'mongoose'
+import mongoose, { Schema, model, Document, Types } from  'mongoose'
 
 //define interface for user object
 interface Agent {
@@ -9,9 +9,13 @@ interface Agent {
     imgUrl: String;
     isOnline:Boolean;
     password: String;
+    admin: {
+        type: Types.ObjectId,
+        ref:String
+    };
 }
 
-//create mongoose schema for user object
+//cre mongoose schema for user object
 const agentSchema = new Schema<Agent>({
     firstName:{ type:String, required:true },
     lastName: { type: String, required: true },
@@ -20,6 +24,7 @@ const agentSchema = new Schema<Agent>({
     imgUrl: { type: String, required: true },
     isOnline: { type: Boolean, required: true},
     password: { type: String, required: true },
+    admin: { type: Types.ObjectId, ref: "Admin" }
 })
 
 //create mongoose model object
