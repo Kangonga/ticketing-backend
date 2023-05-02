@@ -7,8 +7,11 @@ import developerRoutes from './routes/developerRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import cookieSession from 'cookie-session'
 import cors from 'cors'
-dotenv.config()
+import mongoose from 'mongoose'
+import { connectDb } from './db/connect.js'
 
+dotenv.config()
+const mongoURI = process.env.MONGODB_URI
 const app: Express = express()
 const port = process.env.PORT || 3000
 
@@ -38,5 +41,12 @@ app.use(
 // app.get('/', (req:Request, res:Response) =>{
 //     res.send('Express and typescript server')
 // })
-
-app.listen(port, ()=>console.log(`server listening on port ${port}`))
+const startApp = async()=>{
+    try{
+        await connectDb(process.env.MONGODB_URI)
+        app.listen(port, ()=>console.log(`server listening on port ${port}`))
+    }catch(error){
+        console.log('error creating database', error)
+    }
+}
+startApp()
