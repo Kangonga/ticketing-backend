@@ -9,7 +9,7 @@ export const agentController = {
       const agents = await Agent.find();
       res.json(agents);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   },
   
@@ -25,7 +25,7 @@ export const agentController = {
       const newAgent = await agent.save();
       res.status(201).json(newAgent);
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(400).json({ message: err });
     }
   },
 
@@ -37,7 +37,7 @@ export const agentController = {
       }
       res.json(agent);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   },
 
@@ -53,7 +53,7 @@ export const agentController = {
       const updatedAgent = await agent.save();
       res.json(updatedAgent);
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(400).json({ message: err });
     }
   },
 
@@ -66,7 +66,7 @@ export const agentController = {
     //   await agent.remove();
       res.json({ message: 'Agent deleted successfully' });
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 };
