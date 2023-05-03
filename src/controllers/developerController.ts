@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
 // import Developer model
-import  Developer  from '../models/Developer.js';
+import  DeveloperModel  from '../models/Developer.js';
 
 export const DeveloperController = {
   async getAllDevelopers(req: Request, res: Response) {
     try {
-      const developers = await Developer.find();
+      const developers = await DeveloperModel.find();
       res.json(developers);
     } catch (err) {
       res.status(500).json({ message: err });
@@ -14,16 +14,9 @@ export const DeveloperController = {
   },
   
   async createDeveloper(req: Request, res: Response) {
-    const developer = new Developer({
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone,
-      // additional fields for Developer model
-    });
-
     try {
-      const newDeveloper = await developer.save();
-      res.status(201).json(newDeveloper);
+      const developer = DeveloperModel.create(req.body)
+      res.status(201).json(developer);
     } catch (err) {
       res.status(400).json({ message: err });
     }
@@ -31,35 +24,43 @@ export const DeveloperController = {
 
   async getDeveloperById(req: Request, res: Response) {
     try {
-      const developer = await Developer.findById(req.params.id);
+      const developer = await DeveloperModel.findById(req.params.id)
       if (!developer) {
         return res.status(404).json({ message: 'Developer not found' });
       }
-      res.json(Developer);
+      res.json(developer);
     } catch (err) {
       res.status(500).json({ message: err });
     }
   },
 
   async updateDeveloperById(req: Request, res: Response) {
+    const developerId =req.params.id
     try {
-      const developer = await Developer.findById(req.params.id);
+      const developer = await DeveloperModel.findOneAndUpdate({
+        _id: developerId
+      },
+      req.body,
+      {
+        new:true,
+        runValidators:true
+      }
+      );
       if (!developer) {
         return res.status(404).json({ message: 'Developer not found' });
       }
-
-      // additional fields for Developer model
-
-      const updatedDeveloper = await developer.save();
-      res.json(updatedDeveloper);
+      res.json(developer);
     } catch (err) {
       res.status(400).json({ message: err });
     }
   },
 
   async deleteDeveloperById(req: Request, res: Response) {
+    const developerId = req.params.id
     try {
-      const developer = await Developer.findById(req.params.id);
+      const developer = await DeveloperModel.findOneAndDelete({
+        _id: developerId
+      })
       if (!developer) {
         return res.status(404).json({ message: 'Developer not found' });
       }
