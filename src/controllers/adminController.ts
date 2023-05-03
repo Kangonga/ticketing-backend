@@ -15,10 +15,13 @@ export const AdminController = {
   
   async createadmin(req: Request, res: Response) {
     const admin = new Admin({
-      name: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
-      phone: req.body.phone,
-      // additional fields for admin model
+      password: req.body.password,
+      agents: req.body.agents,
+      tickets: req.body.tickets,
+      developers: req.body.developers
     });
 
     try {
