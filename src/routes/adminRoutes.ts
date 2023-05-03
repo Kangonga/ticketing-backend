@@ -1,16 +1,16 @@
 import express, { Express, Request, Response, Router } from 'express'
-import { createAdmin, deleteAdmin, getAllAdmins, getOneAdmin, updateOneAdmin } from '../controllers/adminController.js';
+import { AdminController } from '../controllers/adminController.js';
 
 
 const adminRoutes = Router();
 
 adminRoutes.route('/')
-.get(getAllAdmins)
-.post(createAdmin)
+.get(AdminController.getAlladmins)
+.post(AdminController.createadmin)
 
 adminRoutes.route('/:id')
-.get(getOneAdmin)
-.patch(updateOneAdmin)
-.delete(deleteAdmin)
+.get(AdminController.getadminById)
+.patch(AdminController.updateadminById)
+.delete(AdminController.deleteadminById)
 
 export default adminRoutes
