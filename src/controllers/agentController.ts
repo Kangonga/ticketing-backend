@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
 // import agent model
-import  Agent  from '../models/Agent.js';
+import  AgentController  from '../models/Agent.js';
 
 export const agentController = {
   async getAllAgents(req: Request, res: Response) {
     try {
-      const agents = await Agent.find();
+      const agents = await AgentController.find();
       res.json(agents);
     } catch (err) {
       res.status(500).json({ message: err });
@@ -14,16 +14,10 @@ export const agentController = {
   },
   
   async createAgent(req: Request, res: Response) {
-    const agent = new Agent({
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone,
-      // additional fields for agent model
-    });
 
     try {
-      const newAgent = await agent.save();
-      res.status(201).json(newAgent);
+      const agent = AgentController.create(req.body)
+      res.status(201).json(agent);
     } catch (err) {
       res.status(400).json({ message: err });
     }
@@ -31,7 +25,7 @@ export const agentController = {
 
   async getAgentById(req: Request, res: Response) {
     try {
-      const agent = await Agent.findById(req.params.id);
+      const agent = await AgentController.findById(req.params.id);
       if (!agent) {
         return res.status(404).json({ message: 'Agent not found' });
       }
@@ -43,15 +37,20 @@ export const agentController = {
 
   async updateAgentById(req: Request, res: Response) {
     try {
-      const agent = await Agent.findById(req.params.id);
+      const agentId = req.params.id
+      const agent = await AgentController.findOneAndUpdate({
+        _id:agentId
+      },
+      req.body,
+      {
+        new:true,
+        runValidators:true
+      }
+      )
       if (!agent) {
         return res.status(404).json({ message: 'Agent not found' });
       }
-
-      // additional fields for agent model
-
-      const updatedAgent = await agent.save();
-      res.json(updatedAgent);
+      res.json(agent);
     } catch (err) {
       res.status(400).json({ message: err });
     }
@@ -59,11 +58,13 @@ export const agentController = {
 
   async deleteAgentById(req: Request, res: Response) {
     try {
-      const agent = await Agent.findById(req.params.id);
+      const agentId = req.params.body
+      const agent = await AgentController.findOneAndDelete({
+        _id:agentId
+      });
       if (!agent) {
         return res.status(404).json({ message: 'Agent not found' });
       }
-    //   await agent.remove();
       res.json({ message: 'Agent deleted successfully' });
     } catch (err) {
       res.status(500).json({ message: err });
