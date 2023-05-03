@@ -1,15 +1,14 @@
 import express, { Express, Request, Response, Router } from 'express'
-import { createTicket, deleteTicket, getAllTickets, getOneTicket, updateOneTicket } from '../controllers/ticketController.js';
-
+import { ticketController } from '../controllers/ticketController.js';
 const ticketsRoutes = Router();
 
 ticketsRoutes.route('/')
-.get(getAllTickets)
-.post(createTicket)
+.get(ticketController.getAllTickets)
+.post(ticketController.createTicket)
 
 ticketsRoutes.route('/:id')
-.get(getOneTicket)
-.patch(updateOneTicket)
-.delete(deleteTicket)
+.get(ticketController.getTicketById)
+.patch(ticketController.updateTicketById)
+.delete(ticketController.deleteTicketById)
 
 export default ticketsRoutes
