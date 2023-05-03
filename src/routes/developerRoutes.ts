@@ -1,15 +1,15 @@
 import express, { Express, Request, Response, Router } from 'express'
-import { createDeveloper, deleteDeveloper, getAllDevelopers, getOneDeveloper, updateOneDeveloper } from '../controllers/developerController.js';
+import { DeveloperController } from '../controllers/developerController.js';
 
 const developerRoutes = Router();
 
 developerRoutes.route('/')
-.get(getAllDevelopers)
-.post(createDeveloper)
+.get(DeveloperController.getAllDevelopers)
+.post(DeveloperController.createDeveloper)
 
 developerRoutes.route('/:id')
-.get(getOneDeveloper)
-.patch(updateOneDeveloper)
-.delete(deleteDeveloper)
+.get(DeveloperController.getDeveloperById)
+.patch(DeveloperController.updateDeveloperById)
+.delete(DeveloperController.deleteDeveloperById)
 
 export default developerRoutes
