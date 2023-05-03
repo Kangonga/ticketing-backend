@@ -25,21 +25,9 @@ export const ticketController = {
     },
     
     async createTicket (req: Request, res:Response){ 
-        const ticket = new TicketModel({
-            title: req.body.title,
-            description: req.body.description,
-            agent: req.body.agent,
-            developer: req.body.developer,
-            admin: req.body.admin,
-            source: req.body.source, 
-            priority: req.body.priority, 
-            isClosed: req.body.isClosed,
-            createdAt: req.body.createdAt, 
-            closedAt: req.body.closedAt,
-        })
         try{
-            const newTicket = await ticket.save();
-            res.status(201).json(newTicket);
+            const ticket = await TicketModel.create(req.params.body);
+            res.status(201).json(ticket);
         }catch (err) {
             res.status(400).json({ message:err })
         }
@@ -47,12 +35,20 @@ export const ticketController = {
     
     async updateTicketById (req: Request, res:Response){
         try{
-            const ticket = await TicketModel.findById(req.params.id);
+            const ticketId = req.params.id
+            const ticket = await TicketModel.findOneAndUpdate({
+                _id: ticketId
+            },
+            req.body,
+            {
+                new:true,
+                runValidators:true
+            }
+            )
             if (!ticket) {
                 return res.status(404).json({ message: 'Ticket not found' })
             }
-            const updatedTicket = await ticket.save();
-            res.json(updatedTicket)
+            res.json(ticket)
         }catch (err) {
             res.status(400).json({ message: err })
         }
@@ -60,12 +56,16 @@ export const ticketController = {
     
     async deleteTicketById (req: Request, res:Response){
         try{
-            const ticket = await TicketModel.findById(req.params.id)
-            if(!ticket){
-                return res.status(404).json({ message: 'No tickets found'})
+            const ticketId = req.params.id
+            const ticket = await TicketModel.findOneAndDelete({
+                _id: ticketId
             }
-            res.json({ message:'Agent deleted successfuly'})
-        }catch ( err ){
+            )
+            if (!ticket) {
+                return res.status(404).json({ message: 'Ticket not found' })
+            }
+            res.json({ message: 'Ticket deleted successfuly'})
+        }catch (err) {
             res.status(500).json({ message: err })
         }
     }
