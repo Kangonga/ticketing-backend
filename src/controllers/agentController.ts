@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
 // import agent model
-import  AgentController  from '../models/Agent.js';
+import  AgentModel  from '../models/Agent.js';
 
-export const agentController = {
+export const AgentController = {
   async getAllAgents(req: Request, res: Response) {
     try {
-      const agents = await AgentController.find();
+      const agents = await AgentModel.find();
       res.json(agents);
     } catch (err) {
       res.status(500).json({ message: err });
@@ -14,9 +14,8 @@ export const agentController = {
   },
   
   async createAgent(req: Request, res: Response) {
-
     try {
-      const agent = AgentController.create(req.body)
+      const agent = await AgentModel.create(req.body)
       res.status(201).json(agent);
     } catch (err) {
       res.status(400).json({ message: err });
@@ -25,7 +24,7 @@ export const agentController = {
 
   async getAgentById(req: Request, res: Response) {
     try {
-      const agent = await AgentController.findById(req.params.id);
+      const agent = await AgentModel.findById(req.params.id);
       if (!agent) {
         return res.status(404).json({ message: 'Agent not found' });
       }
@@ -38,7 +37,7 @@ export const agentController = {
   async updateAgentById(req: Request, res: Response) {
     try {
       const agentId = req.params.id
-      const agent = await AgentController.findOneAndUpdate({
+      const agent = await AgentModel.findOneAndUpdate({
         _id:agentId
       },
       req.body,
@@ -59,7 +58,7 @@ export const agentController = {
   async deleteAgentById(req: Request, res: Response) {
     try {
       const agentId = req.params.body
-      const agent = await AgentController.findOneAndDelete({
+      const agent = await AgentModel.findOneAndDelete({
         _id:agentId
       });
       if (!agent) {
