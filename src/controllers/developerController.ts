@@ -15,7 +15,7 @@ export const DeveloperController = {
   
   async createDeveloper(req: Request, res: Response) {
     try {
-      const developer = DeveloperModel.create(req.body)
+      const developer = await DeveloperModel.create(req.body)
       res.status(201).json(developer);
     } catch (err) {
       res.status(400).json({ message: err });
