@@ -4,6 +4,7 @@ import { signIn, signOut, signUp } from '../controllers/authController.js'
 const authRoutes = Router()
 
 authRoutes.route('/signin')
+.get(signIn)
 .post(signIn)
 
 authRoutes.route('/signout')
