@@ -30,14 +30,14 @@ app.use('/developers', developerRoutes)
 app.use('/auth', authRoutes)
 //helps to store  session data on the client within a cookie
 // without requiring any database/resources on the server side.
-app.use(
-    cookieSession({
-        name:'mysession',
-        secret: process.env.COOKIE_SECRET,
-        //the cookie will only be available via http requests, and cant be accessed by client side js
-        httpOnly:true
-    })
-)
+// app.use(
+//     cookieSession({
+//         name:'mysession',
+//         secret: process.env.COOKIE_SECRET,
+//         //the cookie will only be available via http requests, and cant be accessed by client side js
+//         httpOnly:true
+//     })
+// )
 // app.get('/', (req:Request, res:Response) =>{
 //     res.send('Express and typescript server')
 // })
