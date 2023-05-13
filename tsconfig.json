@@ -6,7 +6,11 @@
         "sourceMap": true,
         "outDir": "dist",
         "esModuleInterop": true,
-        "strict": true
+        "strict": true,
+        "typeRoots": [
+            "./src/types",
+            "./node_modules/@types"
+        ]
     },
     "include": ["src/**/*"]
 }
