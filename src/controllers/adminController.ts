@@ -16,7 +16,6 @@ export const AdminController = {
   async createadmin(req: Request, res: Response) {
     try {
       const admin = await Admin.create(req.body)
-      console.log(req.body)
       res.status(201).json(admin);
     } catch (err) {
       res.status(400).json({ message: err });
