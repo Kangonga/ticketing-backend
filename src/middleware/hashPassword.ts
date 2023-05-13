@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { userInterface } from '../models/Admin.js';
+import { userInterface } from '../models/baseUserInterface.js';
 
 export async function hashPassword(this:userInterface,next:any){
     const user = this;
