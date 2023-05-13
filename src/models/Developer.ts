@@ -10,6 +10,7 @@ interface Developer {
     imgUrl: String;
     isOnline:Boolean;
     password: String;
+    role:String,
     admin: {
         type: Types.ObjectId,
         ref:String
@@ -25,6 +26,7 @@ const developerSchema = new Schema<Developer>({
     imgUrl: { type: String, required: true },
     isOnline: { type: Boolean, required: true},
     password: { type: String, required: true },
+    role:{ type: String, required: true },
     admin: { type: Types.ObjectId, ref: "Admin" }
 })
 

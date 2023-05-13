@@ -10,6 +10,7 @@ interface Agent {
     imgUrl: String;
     isOnline:Boolean;
     password: String;
+    role:String,
     admin: {
         type: Types.ObjectId,
         ref:String
@@ -25,6 +26,7 @@ const agentSchema = new Schema<Agent>({
     imgUrl: { type: String, required: false },
     isOnline: { type: Boolean, required: true},
     password: { type: String, required: true },
+    role:{ type: String, required: true },
     admin: { type: Types.ObjectId, ref: "Admin" }
 })
 agentSchema.pre('save', hashPassword)
