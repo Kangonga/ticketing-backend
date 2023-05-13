@@ -3,17 +3,17 @@ import { hashPassword } from '../middleware/hashPassword.js';
 
 //define interface for user object
 interface Developer {
-    firstName: String;
-    lastName: String;
-    email: String;
-    ticketsClosed:Number;
-    imgUrl: String;
-    isOnline:Boolean;
-    password: String;
-    role:String,
+    firstName: string;
+    lastName: string;
+    email: string;
+    ticketsClosed:number;
+    imgUrl: string;
+    isOnline:boolean;
+    password: string;
+    role:string,
     admin: {
         type: Types.ObjectId,
-        ref:String
+        ref:string
     };
 }
 

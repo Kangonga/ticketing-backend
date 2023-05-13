@@ -2,24 +2,24 @@ import mongoose, { Schema, model, Document, Types } from  'mongoose'
 
 //define interface for user object
 interface Ticket {
-    title: String;
-    description: String;
-    source: String;
-    priority: String;
-    isClosed: Boolean;
-    createdAt: String;
-    closedAt: String;
+    title: string;
+    description: string;
+    source: string;
+    priority: string;
+    isClosed: boolean;
+    createdAt: string;
+    closedAt: string;
     admin: {
         type: Types.ObjectId,
-        ref:String
+        ref:string
     };
     developer: {
         type: Types.ObjectId,
-        ref:String
+        ref:string
     };
     agent: {
         type: Types.ObjectId,
-        ref:String
+        ref:string
     };
 }
 

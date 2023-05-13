@@ -6,7 +6,7 @@ interface Admin {
     lastName: string;
     email: string;
     password: string;
-    role:String,
+    role:string,
     agents: Types.ObjectId[];
     tickets: Types.ObjectId[];
     developers: Types.ObjectId[];
