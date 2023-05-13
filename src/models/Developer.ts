@@ -1,4 +1,5 @@
 import mongoose, { Schema, model, Types } from  'mongoose'
+import { hashPassword } from '../middleware/hashPassword.js';
 
 //define interface for user object
 interface Developer {
@@ -27,6 +28,7 @@ const developerSchema = new Schema<Developer>({
     admin: { type: Types.ObjectId, ref: "Admin" }
 })
 
+developerSchema.pre('save', hashPassword)
 //create mongoose model object
 const DeveloperModel = model('Developer', developerSchema)
 

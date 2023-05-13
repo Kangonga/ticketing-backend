@@ -1,11 +1,11 @@
 import mongoose, { Schema, model, Document, Types } from  'mongoose'
+import { hashPassword } from '../middleware/hashPassword.js';
 
-//define interface for user object
 interface Admin {
-    firstName: String;
-    lastName: String;
-    email: String;
-    password: String;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
     agents: Types.ObjectId[];
     tickets: Types.ObjectId[];
     developers: Types.ObjectId[];
@@ -24,7 +24,7 @@ const adminSchema = new Schema<Admin>({
     developers:[{ type: Types.ObjectId, ref:'Developer' }],
     tickets:[{ type: Types.ObjectId, ref:'Ticket' }]
 })
-
+adminSchema.pre('save', hashPassword)
 //create mongoose model object
 const AdminModel = model('Admin', adminSchema)
 
